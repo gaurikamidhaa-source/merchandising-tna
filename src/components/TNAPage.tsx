@@ -61,11 +61,6 @@ function generateMilestones(ihDate: string, exFactory: string, fabricCommitment:
 
   function cascadeDates(milestones: Milestone[], changedId: string, newDate: string): Milestone[] {
   const d = (date: string, days: number) => format(addDays(parseISO(date), days), 'yyyy-MM-dd')
-  const get = (id: string) => milestones.find(m => m.id === id)?.plannedDate || newDate
-  const getRound = (id: string, round: number) => {
-    const m = milestones.find(m => m.id === id)
-    return m?.rounds?.find(r => r.round === round)?.plannedDate || newDate
-  }
 
   let updated = milestones.map(m =>
     m.id === changedId ? { ...m, plannedDate: newDate, status: getStatus(newDate, m.actualDate) } : m
